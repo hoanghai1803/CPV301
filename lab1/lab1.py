@@ -264,7 +264,7 @@ def show_calc_window():
         apply_button.grid(row=current_row + 1, column=0, padx=(120, 0), pady=20, sticky="w")
 
 
-        result_window.geometry("1000x1000")
+        result_window.geometry("1000x500")
 
     def calc_matrices():
         try:
