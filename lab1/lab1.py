@@ -19,6 +19,12 @@ class Point:
 
     def actual_coordinate(self):
         return Point(self.x+380, -self.y+380)
+    
+
+    def transform(self, mat: np.ndarray):
+        transformed_point = np.dot(mat, self.to_homogeneous())
+        u, v, w = transformed_point
+        return Point(u/w, v/w)
 
     def __str__(self) -> str:
         return f"({self.x:.2f}, {self.y:.2f})"
@@ -44,10 +50,10 @@ class Quadrangle:
         self.p1, self.p2, self.p3, self.p4 = top_left, top_right, bottom_right, bottom_left
 
     def transform(self, matrix):
-        p1 = transform_point(matrix, self.p1)
-        p2 = transform_point(matrix, self.p2)
-        p3 = transform_point(matrix, self.p3)
-        p4 = transform_point(matrix, self.p4)
+        p1 = self.p1.transform(matrix)
+        p2 = self.p2.transform(matrix)
+        p3 = self.p3.transform(matrix)
+        p4 = self.p4.transform(matrix)
         return Quadrangle(p1, p2, p3, p4)
     
     def get_actual_coordinates(self) -> np.ndarray:
@@ -109,12 +115,6 @@ def update_quadrangle_list():
     quadrangle_listbox.delete(0, tk.END)
     for i in range(len(quadrangle)):
         quadrangle_listbox.insert(tk.END, f"    Quadrangle_{i+1}: {quadrangle[i].__str__()}")
-        
-
-def transform_point(mat: np.ndarray, p: Point) -> Point:
-    transformed_point = np.dot(mat, p.to_homogeneous())
-    u, v, w = transformed_point
-    return Point(u/w, v/w)
 
 
 def show_transform_window():
