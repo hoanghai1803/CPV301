@@ -19,7 +19,6 @@ class Point:
 
     def actual_coordinate(self):
         return Point(self.x+380, -self.y+380)
-    
 
     def transform(self, mat: np.ndarray):
         transformed_point = np.dot(mat, self.to_homogeneous())
