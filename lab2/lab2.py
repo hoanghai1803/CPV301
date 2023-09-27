@@ -9,7 +9,7 @@ from image_processing import ImageProcessing, Effect
 
 
 def open_image() -> None:
-    file_path = tk.filedialog.askopenfilename()
+    file_path = filedialog.askopenfilename()
     if file_path:
         image_states.clear()
         effect_list.clear()
@@ -169,7 +169,7 @@ def handle_ground_truth():
 
     top_left_label = tk.Label(
         sub_window,
-        text="Enter the coordinates of the top-left of the patch:",
+        text=f"Enter the coordinates of the top-left of the patch [0:{image_height-1}, 0:{image_width-1}]:",
         anchor="w")
     top_left_label.grid(row=2, column=0, padx=(20, 0), pady=20, sticky="w")
     y_label = tk.Label(sub_window, text="Y:")
